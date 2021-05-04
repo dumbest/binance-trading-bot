@@ -70,6 +70,8 @@ the price fall/rise.
   not use the latest MongoDB to support Raspberry Pi 32bit. Used MongoDB version
   is 3.2.20, which is provided by
   [apcheamitru](https://hub.docker.com/r/apcheamitru/arm32v7-mongo).
+- The bot is tested/working with Linux and Raspberry Pi 4 32bit. Other platforms
+  are not tested.
 
 #### Buy Signal
 
@@ -241,15 +243,14 @@ Or use the frontend to adjust configurations after launching the application.
    | BINANCE_LIVE_SECRET_KEY        | Binance API secret for live                                               | (from [Binance](https://binance.zendesk.com/hc/en-us/articles/360002502072-How-to-create-API))      |
    | BINANCE_TEST_API_KEY           | Binance API key for test                                                  | (from [Binance Spot Test Network](https://testnet.binance.vision/))                                 |
    | BINANCE_TEST_SECRET_KEY        | Binance API secret for test                                               | (from [Binance Spot Test Network](https://testnet.binance.vision/))                                 |
+   | BINANCE_SLACK_ENABLED          | Slack enable/disable                                                      | true                                                                                                |
    | BINANCE_SLACK_WEBHOOK_URL      | Slack webhook URL                                                         | (from [Slack](https://slack.com/intl/en-au/help/articles/115005265063-Incoming-webhooks-for-Slack)) |
    | BINANCE_SLACK_CHANNEL          | Slack channel                                                             | "#binance"                                                                                          |
    | BINANCE_SLACK_USERNAME         | Slack username                                                            | Chris                                                                                               |
    | BINANCE_LOCAL_TUNNEL_ENABLED   | Enable/Disable [local tunnel](https://github.com/localtunnel/localtunnel) | true                                                                                                |
    | BINANCE_LOCAL_TUNNEL_SUBDOMAIN | Local tunnel public URL subdomain                                         | binance                                                                                             |
 
-2. Check `docker-compose.yml` for `BINANCE_MODE` environment parameter
-
-3. Launch/Update the bot with docker-compose
+2. Launch/Update the bot with docker-compose
 
    Pull latest code first:
 
@@ -257,33 +258,32 @@ Or use the frontend to adjust configurations after launching the application.
    git pull
    ```
 
-   If want production mode, then use the latest build image from DockerHub:
+   If want production/live mode, then use the latest build image from DockerHub:
 
    ```bash
    docker-compose -f docker-compose.server.yml pull
    docker-compose -f docker-compose.server.yml up -d
    ```
 
-   Or if using Raspberry Pi 32bit, must build again for Raspberry Pi:
+   Or if using Raspberry Pi 4 32bit, must build again for Raspberry Pi:
 
    ```bash
    npm run docker:build
    docker-compose -f docker-compose.rpi.yml up -d
    ```
 
-   Or if want development mode, then run below commands:
+   Or if want development/test mode, then run below commands:
 
    ```bash
    docker-compose up -d
    ```
 
-4. Open browser `http://0.0.0.0:8080` to see the frontend
+3. Open browser `http://0.0.0.0:8080` to see the frontend
 
    - When launching the application, it will notify public URL to the Slack.
-
-If you have any issue with the bot, you can check the log to find out what
-happened with the bot. Take a look
-[How to get the logs by installing bunyan npm package](https://github.com/chrisleekr/binance-trading-bot/wiki/Troubleshooting#how-to-get-the-logs-by-installing-bunyan-npm-package)
+   - If you have any issue with the bot, you can check the log to find out what
+     happened with the bot. Please take a look
+     [Troubleshooting](https://github.com/chrisleekr/binance-trading-bot/wiki/Troubleshooting)
 
 ### Install via Stackfile
 
@@ -299,11 +299,11 @@ happened with the bot. Take a look
 
 | Frontend Mobile                                                                                                          | Setting                                                                                                          |
 | ------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------- |
-| ![Frontend Mobile](https://user-images.githubusercontent.com/5715919/113497528-6c2cee80-9548-11eb-913d-ec3bf9b887be.png) | ![Setting](https://user-images.githubusercontent.com/5715919/113497530-764eed00-9548-11eb-9eea-222a9a1ad791.png) |
+| ![Frontend Mobile](https://user-images.githubusercontent.com/5715919/116782164-eeb6b880-aaca-11eb-8ad5-ad95e675eed1.png) | ![Setting](https://user-images.githubusercontent.com/5715919/116782053-4a347680-aaca-11eb-9dfd-eb0bfca69381.png) |
 
 | Frontend Desktop                                                                                                          |
 | ------------------------------------------------------------------------------------------------------------------------- |
-| ![Frontend Desktop](https://user-images.githubusercontent.com/5715919/113497538-82d34580-9548-11eb-8c1e-bac03a83356c.png) |
+| ![Frontend Desktop](https://user-images.githubusercontent.com/5715919/116782123-b911cf80-aaca-11eb-99eb-6e824181bdce.png) |
 
 ### Sample Trade
 
@@ -332,6 +332,8 @@ to view the past changes.
       [#85](https://github.com/chrisleekr/binance-trading-bot/issues/85)
 - [x] Support all symbols -
       [#104](https://github.com/chrisleekr/binance-trading-bot/issues/104)
+- [ ] Add stop loss feature -
+      [#99](https://github.com/chrisleekr/binance-trading-bot/issues/99)
 - [ ] Improve sell strategy with conditional stop price percentage based on the
       profit percentage -
       [#94](https://github.com/chrisleekr/binance-trading-bot/issues/94)
@@ -343,8 +345,6 @@ to view the past changes.
       [#84](https://github.com/chrisleekr/binance-trading-bot/issues/84)
 - [ ] Add manual buy/sell
       feature -[#100](https://github.com/chrisleekr/binance-trading-bot/issues/100)
-- [ ] Add stop loss feature -
-      [#99](https://github.com/chrisleekr/binance-trading-bot/issues/99)
 - [ ] Support multilingual frontend -
       [#56](https://github.com/chrisleekr/binance-trading-bot/issues/56)
 - [ ] Reset global configuration to initial configuration -
